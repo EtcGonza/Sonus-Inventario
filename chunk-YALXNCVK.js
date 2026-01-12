@@ -1,0 +1,1 @@
+import{Ha as t}from"./chunk-6DWSO5LZ.js";var i=class e{transform(r){if(!r)return"";switch(r.toLowerCase()){case"active":return"Activo";case"draft":return"Borrador";case"disabled":return"Deshabilitado";default:return r}}static \u0275fac=function(a){return new(a||e)};static \u0275pipe=t({name:"statusLabel",type:e,pure:!0})};export{i as a};
