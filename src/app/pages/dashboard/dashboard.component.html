@@ -1,0 +1,64 @@
+<div class="container mx-auto p-6">
+  <div class="bg-primary-600 rounded-2xl shadow-xl overflow-hidden mb-10">
+    <div class="p-10 text-center">
+      <h1 class="text-4xl font-extrabold text-white mb-4">Sonus Inventario</h1>
+      <p class="text-primary-100 text-lg mb-8 max-w-2xl mx-auto">
+        Sistema de gestión de inventario para micrófonos de guitarra. Controla stock, recetas y producción.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a routerLink="/materials" class="bg-white text-primary-600 font-bold py-3 px-6 rounded-full hover:bg-primary-50 transition duration-300">
+          Gestionar Materiales
+        </a>
+        <a routerLink="/build" class="bg-primary-800 text-white font-bold py-3 px-6 rounded-full hover:bg-primary-900 transition duration-300 border border-primary-500">
+          ¿Qué puedo armar?
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <!-- Card 1 -->
+    <a routerLink="/materials" class="group bg-white rounded-xl shadow-sm border border-slate-200 p-6 hover:shadow-md transition-all duration-300 hover:border-primary-300">
+      <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 mb-4 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+        </svg>
+      </div>
+      <h3 class="text-lg font-bold text-slate-800 mb-2">Materiales</h3>
+      <p class="text-slate-500 text-sm">Registro de stock e insumos.</p>
+    </a>
+
+    <!-- Card 2 -->
+    <a routerLink="/recipes" class="group bg-white rounded-xl shadow-sm border border-slate-200 p-6 hover:shadow-md transition-all duration-300 hover:border-primary-300">
+      <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center text-purple-600 mb-4 group-hover:bg-purple-600 group-hover:text-white transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+        </svg>
+      </div>
+      <h3 class="text-lg font-bold text-slate-800 mb-2">Recetas</h3>
+      <p class="text-slate-500 text-sm">Bill of Materials (BOM) para tus productos.</p>
+    </a>
+
+    <!-- Card 3 -->
+    <a routerLink="/products" class="group bg-white rounded-xl shadow-sm border border-slate-200 p-6 hover:shadow-md transition-all duration-300 hover:border-primary-300">
+      <div class="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center text-pink-600 mb-4 group-hover:bg-pink-600 group-hover:text-white transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+        </svg>
+      </div>
+      <h3 class="text-lg font-bold text-slate-800 mb-2">Productos</h3>
+      <p class="text-slate-500 text-sm">Modelos comerciales vinculados a recetas.</p>
+    </a>
+
+    <!-- Card 4 -->
+    <a routerLink="/build" class="group bg-white rounded-xl shadow-sm border border-slate-200 p-6 hover:shadow-md transition-all duration-300 hover:border-primary-300">
+      <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center text-green-600 mb-4 group-hover:bg-green-600 group-hover:text-white transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+        </svg>
+      </div>
+      <h3 class="text-lg font-bold text-slate-800 mb-2">Producción</h3>
+      <p class="text-slate-500 text-sm">Calculadora de potencial de armado.</p>
+    </a>
+  </div>
+</div>

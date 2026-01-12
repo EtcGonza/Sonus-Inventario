@@ -1,0 +1,76 @@
+<div class="container mx-auto p-6 max-w-4xl" *ngIf="material$ | async as material">
+  <div class="mb-6 flex justify-between items-center">
+    <div>
+      <a routerLink="/materials" class="text-primary-600 hover:text-primary-800 mb-2 inline-block">&larr; Volver a la lista</a>
+      <h1 class="text-3xl font-bold text-slate-800">{{ material.nombre }}</h1>
+      <span class="text-sm text-slate-500">ID: {{ material.id }}</span>
+    </div>
+    <div class="space-x-3">
+        <a [routerLink]="['/materials', material.id, 'edit']" class="bg-primary-600 text-white px-4 py-2 rounded-md hover:bg-primary-700 transition">Editar</a>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div class="bg-white p-6 rounded-lg shadow border border-slate-200">
+          <h3 class="text-xs font-bold text-slate-500 uppercase mb-1">Cantidad Actual</h3>
+          <p class="text-2xl text-slate-900">{{ material.cantidad }} <span class="text-sm text-slate-500">{{ material.unidad }}</span></p>
+      </div>
+
+      <div class="bg-white p-6 rounded-lg shadow border border-slate-200">
+          <h3 class="text-xs font-bold text-slate-500 uppercase mb-1">Estado</h3>
+          <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full"
+            [class.bg-green-100]="material.estado === 'active'"
+            [class.text-green-800]="material.estado === 'active'"
+            [class.bg-yellow-100]="material.estado === 'draft'"
+            [class.text-yellow-800]="material.estado === 'draft'"
+            [class.bg-gray-100]="material.estado === 'disabled'"
+            [class.text-gray-800]="material.estado === 'disabled'">
+            {{ material.estado | statusLabel }}
+          </span>
+      </div>
+  </div>
+
+  <div class="bg-white rounded-lg shadow border border-slate-200 overflow-hidden">
+      <div class="px-6 py-4 border-b border-slate-200 bg-slate-50">
+          <h2 class="text-lg font-bold text-slate-800">Historial de Movimientos</h2>
+      </div>
+      <table class="min-w-full divide-y divide-slate-200">
+          <thead class="bg-slate-50">
+              <tr>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Fecha</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Tipo</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Cantidad</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Nota</th>
+              </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-slate-200">
+              @for (event of history$ | async; track event.id) {
+                  <tr>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500">
+                          {{ event.timestamp | date:'short' }}
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                          <span class="capitalize" 
+                            [class.text-green-600]="event.cantidad > 0"
+                            [class.text-red-600]="event.cantidad < 0">
+                              {{ event.tipo }}
+                          </span>
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm font-bold"
+                        [class.text-green-600]="event.cantidad > 0"
+                        [class.text-red-600]="event.cantidad < 0">
+                          {{ event.cantidad > 0 ? '+' : '' }}{{ event.cantidad }}
+                      </td>
+                      <td class="px-6 py-4 text-sm text-slate-500 max-w-xs truncate">
+                          {{ event.nota || '-' }}
+                      </td>
+                  </tr>
+              } @empty {
+                  <tr>
+                      <td colspan="4" class="px-6 py-4 text-center text-slate-500">Sin movimientos registrados.</td>
+                  </tr>
+              }
+          </tbody>
+      </table>
+  </div>
+</div>

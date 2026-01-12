@@ -1,0 +1,105 @@
+<div class="container mx-auto p-6 max-w-4xl">
+  <div class="mb-6">
+    <a routerLink="/recipes" class="text-primary-600 hover:text-primary-800 mb-2 inline-block">&larr; Volver a la lista</a>
+    <h1 class="text-3xl font-bold text-slate-800">{{ isEditing ? 'Editar Receta' : 'Nueva Receta' }}</h1>
+  </div>
+
+  <div class="bg-white shadow-md rounded-lg p-6 border border-slate-200">
+    <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+      
+      <div class="grid grid-cols-1 gap-6 mb-8">
+        <!-- Nombre -->
+        <div>
+          <label for="nombre" class="block text-sm font-medium text-slate-700 mb-1">Nombre de la Receta *</label>
+          <input type="text" id="nombre" formControlName="nombre" 
+            class="w-full rounded-md border-slate-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-2 border">
+        </div>
+
+        <!-- Descripcion -->
+        <div>
+          <label for="descripcion" class="block text-sm font-medium text-slate-700 mb-1">Descripción</label>
+          <textarea id="descripcion" formControlName="descripcion" rows="2"
+            class="w-full rounded-md border-slate-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-2 border"></textarea>
+        </div>
+
+        @if(isEditing) {
+          <!-- Estado -->
+          <div>
+            <label for="estado" class="block text-sm font-medium text-slate-700 mb-1">Estado</label>
+            <select id="estado" formControlName="estado"
+              class="w-full rounded-md border-slate-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-2 border">
+              <option value="draft">Borrador</option>
+              <option value="active">Activo</option>
+              <option value="disabled">Deshabilitado</option>
+            </select>
+          </div>
+        }
+      </div>
+
+      <!-- Materiales / BOM -->
+      <div class="mb-6">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-xl font-semibold text-slate-800">Materiales (BOM)</h2>
+          <button type="button" (click)="addMaterial()" class="text-sm bg-primary-50 text-primary-700 hover:bg-primary-100 px-3 py-1 rounded-md transition-colors">
+            + Añadir Material
+          </button>
+        </div>
+
+        <div formArrayName="materiales" class="space-y-4">
+          @for (item of materiales.controls; track $index) {
+            <div [formGroupName]="$index" class="flex items-start space-x-4 p-4 bg-slate-50 rounded-lg border border-slate-200">
+              
+              <!-- Material Select -->
+              <div class="flex-grow">
+                <label class="block text-xs font-medium text-slate-500 mb-1">Material</label>
+                <select formControlName="material_id"
+                  class="w-full rounded-md border-slate-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-2 border">
+                  <option value="" disabled>Seleccionar Material</option>
+                  @for (mat of materials$ | async; track mat.id) {
+                    <option [value]="mat.id">{{ mat.nombre }} ({{mat.unidad}})</option>
+                  }
+                </select>
+              </div>
+
+              <!-- Cantidad -->
+              <div class="w-32">
+                <label class="block text-xs font-medium text-slate-500 mb-1">Cantidad</label>
+                <input type="number" formControlName="cantidad_requerida" min="0" step="any"
+                  class="w-full rounded-md border-slate-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-2 border">
+              </div>
+
+              <!-- Unidad (Override?) -->
+              <div class="w-24">
+                <label class="block text-xs font-medium text-slate-500 mb-1">Unidad</label>
+                <input type="text" formControlName="unidad" placeholder="Unidad"
+                  class="w-full rounded-md border-slate-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm p-2 border">
+              </div>
+
+              <!-- Remove -->
+              <div class="pt-6">
+                <button type="button" (click)="removeMaterial($index)" class="text-red-600 hover:text-red-800 p-1">
+                 <span class="sr-only">Eliminar</span>
+                 &times;
+                </button>
+              </div>
+
+            </div>
+          } @empty {
+             <div class="text-center py-6 bg-slate-50 rounded-lg border border-dashed border-slate-300 text-slate-500">
+               No hay materiales en esta receta. Añade uno.
+             </div>
+          }
+        </div>
+      </div>
+
+      <div class="mt-8 flex justify-end space-x-3">
+        <a routerLink="/recipes" class="px-4 py-2 border border-slate-300 rounded-md text-slate-700 hover:bg-slate-50 transition-colors">Cancelar</a>
+        <button type="submit" [disabled]="recipeForm.invalid"
+          class="px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+          {{ isEditing ? 'Actualizar' : 'Guardar' }}
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>
